@@ -1,0 +1,339 @@
+-- Gui to Lua
+-- Version: 3.2
+local LocalPlayer = game:GetService'Players'.LocalPlayer
+
+-- Instances:
+
+local ABCDEGFHJKHAJ1231a = Instance.new("ScreenGui")
+local Drag = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local HubName = Instance.new("TextLabel")
+local UIGradient = Instance.new("UIGradient")
+local Tip = Instance.new("TextLabel")
+local Gun_Frame = Instance.new("Frame")
+local ToolText = Instance.new("TextLabel")
+local GunText = Instance.new("TextLabel")
+local UIGradient_2 = Instance.new("UIGradient")
+local FarmON = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local UIGradient_3 = Instance.new("UIGradient")
+local Reload = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local UIGradient_4 = Instance.new("UIGradient")
+local UIGradient_5 = Instance.new("UIGradient")
+local Raid_Frame = Instance.new("Frame")
+local Raid = Instance.new("TextLabel")
+local UIGradient_6 = Instance.new("UIGradient")
+local KillAura = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local UIGradient_7 = Instance.new("UIGradient")
+local AutoRaid = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local UIGradient_8 = Instance.new("UIGradient")
+
+--Properties:
+
+local canfarm = Instance.new("BoolValue",ABCDEGFHJKHAJ1231a)
+
+
+ABCDEGFHJKHAJ1231a.Name = "ABCDEGFHJKHAJ1231a"
+ABCDEGFHJKHAJ1231a.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+Drag.Name = "Drag"
+Drag.Parent = ABCDEGFHJKHAJ1231a
+Drag.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Drag.Position = UDim2.new(0.442901224, 0, 0.300787389, 0)
+Drag.Size = UDim2.new(0, 376, 0, 263)
+local UIS = game:GetService('UserInputService')
+local frame = Drag
+local dragToggle = nil
+local dragSpeed = 0.25
+local dragStart = nil
+local startPos = nil
+local function updateInput(input)
+	local delta = input.Position - dragStart
+	local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+		startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+end
+frame.InputBegan:Connect(function(input)
+	if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+		dragToggle = true
+		dragStart = input.Position
+		startPos = frame.Position
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragToggle = false
+			end
+		end)
+	end
+end)
+UIS.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		if dragToggle then
+			updateInput(input)
+		end
+	end
+end)
+local dbb = false
+UIS.InputBegan:Connect(function(Input, IsTyping)
+	if Input.KeyCode == Enum.KeyCode.RightControl and Drag.Visible == true and dbb == false then
+		dbb = true
+		Drag.Visible = false
+	elseif Input.KeyCode == Enum.KeyCode.RightControl and Drag.Visible == false and dbb == true  then
+		dbb = false
+		Drag.Visible = true
+	end
+end)
+
+UICorner.Parent = Drag
+
+HubName.Name = "HubName"
+HubName.Parent = Drag
+HubName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+HubName.BackgroundTransparency = 1.000
+HubName.Position = UDim2.new(0.050847318, 0, 0.0527661107, 0)
+HubName.Size = UDim2.new(0, 98, 0, 32)
+HubName.Font = Enum.Font.SourceSans
+HubName.Text = "Mini Hub"
+HubName.TextColor3 = Color3.fromRGB(255, 255, 255)
+HubName.TextScaled = true
+HubName.TextSize = 14.000
+HubName.TextWrapped = true
+HubName.TextXAlignment = Enum.TextXAlignment.Left
+
+UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(0.29, Color3.fromRGB(255, 85, 255)), ColorSequenceKeypoint.new(0.96, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 170, 255))}
+UIGradient.Parent = HubName
+
+Tip.Name = "Tip"
+Tip.Parent = Drag
+Tip.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Tip.BackgroundTransparency = 1.000
+Tip.Position = UDim2.new(0.050847318, 0, 0.923345983, 0)
+Tip.Size = UDim2.new(0, 312, 0, 20)
+Tip.Font = Enum.Font.SourceSans
+Tip.Text = "Tip: RightCtrl to hide the gui"
+Tip.TextColor3 = Color3.fromRGB(255, 255, 255)
+Tip.TextScaled = true
+Tip.TextSize = 14.000
+Tip.TextWrapped = true
+
+Gun_Frame.Name = "Gun_Frame"
+Gun_Frame.Parent = Drag
+Gun_Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Gun_Frame.BackgroundTransparency = 1.000
+Gun_Frame.BorderSizePixel = 0
+Gun_Frame.Position = UDim2.new(0.039893616, 0, 0.209125474, 0)
+Gun_Frame.Size = UDim2.new(0, 345, 0, 87)
+
+
+ToolText.Name = "ToolText"
+ToolText.Parent = Gun_Frame
+ToolText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ToolText.BackgroundTransparency = 1.000
+ToolText.Position = UDim2.new(0.045050215, 0, 0.227828726, 0)
+ToolText.Size = UDim2.new(0, 312, 0, 20)
+ToolText.Font = Enum.Font.SourceSans
+ToolText.Text = "???"
+ToolText.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToolText.TextScaled = true
+ToolText.TextSize = 14.000
+ToolText.TextWrapped = true
+
+GunText.Name = "GunText"
+GunText.Parent = Gun_Frame
+GunText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GunText.BackgroundTransparency = 1.000
+GunText.Position = UDim2.new(0.0421516635, 0, 0.00334596634, 0)
+GunText.Size = UDim2.new(0, 312, 0, 20)
+GunText.Font = Enum.Font.SourceSans
+GunText.Text = "Auto Farm Gun Mastery"
+GunText.TextColor3 = Color3.fromRGB(255, 255, 255)
+GunText.TextScaled = true
+GunText.TextSize = 14.000
+GunText.TextWrapped = true
+
+UIGradient_2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 85, 0)), ColorSequenceKeypoint.new(0.56, Color3.fromRGB(255, 255, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 170, 255))}
+UIGradient_2.Parent = GunText
+
+
+local camera = workspace.CurrentCamera
+function noclip()
+	LocalPlayer.Character.Humanoid:ChangeState(11)
+end
+function click(worldPoint)
+    local vector, onScreen = camera:WorldToScreenPoint(worldPoint)
+	game:GetService'VirtualUser':CaptureController()
+	game:GetService'VirtualUser':Button1Down(Vector2.new(vector.X, vector.Y))
+end
+function autofarm(tool, enemy, exclusion, quest, number)
+	game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("AbandonQuest");
+	while canfarm.Value == true do
+		if canfarm.Value == false then
+			break
+		end
+		if LocalPlayer.Character:FindFirstChild('HumanoidRootPart') and LocalPlayer:FindFirstChild('Data') then
+			repeat wait() until (workspace.Enemies:GetChildren()) ~= nil
+			print(tool)
+			if LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+				--game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("StartQuest", quest, tonumber(number));
+			end
+			for _,X in pairs (workspace.Enemies:GetChildren()) do
+				if X.Name:match(enemy) then
+					for i,v in pairs(workspace.Enemies:GetDescendants()) do
+						if v.Name == "HumanoidRootPart" then
+							v.Size = Vector3.new(50,2,50)
+							v.Transparency = 1
+							v.CanCollide = false
+						end
+					end
+					repeat 
+						wait()
+						noclip()
+						local count = X.Humanoid.MaxHealth / 100 * 20
+						local worldPoint = X.HumanoidRootPart.Position
+						    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                                if v:IsA("Tool") and v.ToolTip == "Melee" and X.Humanoid.Health <= count then
+                                    v.Parent = game.Players.LocalPlayer.Backpack
+                                elseif v:IsA("Tool") and  v.ToolTip == "Gun" and X.Humanoid.Health > count then
+                                    v.Parent = game.Players.LocalPlayer.Backpack
+                                end
+                            end
+                            for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                                if v.ToolTip == "Melee" and X.Humanoid.Health > count then
+                                    v.Parent = game.Players.LocalPlayer.Character
+                                elseif v.ToolTip == "Gun" and X.Humanoid.Health <= count then
+                                    v.Parent = game.Players.LocalPlayer.Character
+                                end
+                            end
+						if LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+							--game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("StartQuest", quest, tonumber(number));
+						end
+						click(worldPoint)
+						noclip()
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = X.UpperTorso.CFrame + Vector3.new(0, 20, 0) - X.UpperTorso.CFrame.lookVector * 5
+					until X.Humanoid.Health == 0 or canfarm.Value == false
+				end
+			end
+		end
+	end
+end
+function teleport(pos)
+	LocalPlayer.Character.HumanoidRootPart.CFrame = (pos)
+end
+local faketool = nil
+
+function bestfarm()
+	if 	LocalPlayer.Data.Level.Value >= 1450 and LocalPlayer.Data.Level.Value < 2000 then
+		local pos = Vector3.new(-3425.94, 239.433, -10720.5)
+		teleport(CFrame.new(pos.X,pos.Y,pos.Z))
+		wait(1)
+		autofarm(tostring(faketool), "Water Fighter", nil, "ForgottenQuest", 2)
+	end
+end
+
+FarmON.Name = "FarmON"
+FarmON.Parent = Gun_Frame
+FarmON.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+FarmON.Position = UDim2.new(0.324637681, 0, 0.526679397, 0)
+FarmON.Size = UDim2.new(0, 121, 0, 30)
+FarmON.Font = Enum.Font.SourceSans
+FarmON.Text = "Farm: OFF"
+FarmON.TextColor3 = Color3.fromRGB(85, 255, 255)
+FarmON.TextScaled = true
+FarmON.TextSize = 14.000
+FarmON.TextWrapped = true
+FarmON.MouseButton1Click:Connect(function()
+	if canfarm.Value == false then
+		canfarm.Value = true
+		FarmON.Text = "Farm: ON"
+		bestfarm()
+	else
+		canfarm.Value = false
+		FarmON.Text = "Farm: OFF"
+	end
+end)
+
+UICorner_2.Parent = FarmON
+
+UIGradient_3.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(0.29, Color3.fromRGB(255, 85, 255)), ColorSequenceKeypoint.new(0.96, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 170, 255))}
+UIGradient_3.Parent = FarmON
+
+Reload.Name = "Reload"
+Reload.Parent = Gun_Frame
+Reload.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Reload.Position = UDim2.new(0.773913026, 0, 0.561162174, 0)
+Reload.Size = UDim2.new(0, 49, 0, 24)
+Reload.Font = Enum.Font.SourceSans
+Reload.Text = "Reload Tool"
+Reload.TextColor3 = Color3.fromRGB(85, 255, 255)
+Reload.TextScaled = true
+Reload.TextSize = 14.000
+Reload.TextWrapped = true
+
+UICorner_3.Parent = Reload
+
+UIGradient_4.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(0.29, Color3.fromRGB(255, 85, 255)), ColorSequenceKeypoint.new(0.96, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 170, 255))}
+UIGradient_4.Parent = Reload
+
+UIGradient_5.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)), ColorSequenceKeypoint.new(0.96, Color3.fromRGB(0, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(85, 255, 255))}
+UIGradient_5.Parent = Drag
+
+Raid_Frame.Name = "Raid_Frame"
+Raid_Frame.Parent = Drag
+Raid_Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Raid_Frame.BackgroundTransparency = 1.000
+Raid_Frame.BorderSizePixel = 0
+Raid_Frame.Position = UDim2.new(0.039893616, 0, 0.539923966, 0)
+Raid_Frame.Size = UDim2.new(0, 345, 0, 87)
+Raid_Frame.Visible = false
+
+Raid.Name = "Raid"
+Raid.Parent = Raid_Frame
+Raid.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Raid.BackgroundTransparency = 1.000
+Raid.Position = UDim2.new(0.0450502262, 0, 0.037828818, 0)
+Raid.Size = UDim2.new(0, 312, 0, 29)
+Raid.Font = Enum.Font.SourceSans
+Raid.Text = "Raid"
+Raid.TextColor3 = Color3.fromRGB(255, 255, 255)
+Raid.TextScaled = true
+Raid.TextSize = 14.000
+Raid.TextWrapped = true
+
+UIGradient_6.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 85, 0)), ColorSequenceKeypoint.new(0.56, Color3.fromRGB(255, 255, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 170, 255))}
+UIGradient_6.Parent = Raid
+
+KillAura.Name = "KillAura"
+KillAura.Parent = Raid_Frame
+KillAura.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KillAura.Position = UDim2.new(0.0434782505, 0, 0.492196649, 0)
+KillAura.Size = UDim2.new(0, 121, 0, 30)
+KillAura.Font = Enum.Font.SourceSans
+KillAura.Text = "Kill Aura: OFF"
+KillAura.TextColor3 = Color3.fromRGB(85, 255, 255)
+KillAura.TextScaled = true
+KillAura.TextSize = 14.000
+KillAura.TextWrapped = true
+
+UICorner_4.Parent = KillAura
+
+UIGradient_7.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(0.29, Color3.fromRGB(255, 85, 255)), ColorSequenceKeypoint.new(0.96, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 170, 255))}
+UIGradient_7.Parent = KillAura
+
+AutoRaid.Name = "AutoRaid"
+AutoRaid.Parent = Raid_Frame
+AutoRaid.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AutoRaid.Position = UDim2.new(0.565217376, 0, 0.492196649, 0)
+AutoRaid.Size = UDim2.new(0, 121, 0, 30)
+AutoRaid.Font = Enum.Font.SourceSans
+AutoRaid.Text = "Auto Raid: OFF"
+AutoRaid.TextColor3 = Color3.fromRGB(85, 255, 255)
+AutoRaid.TextScaled = true
+AutoRaid.TextSize = 14.000
+AutoRaid.TextWrapped = true
+
+UICorner_5.Parent = AutoRaid
+
+UIGradient_8.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(0.29, Color3.fromRGB(255, 85, 255)), ColorSequenceKeypoint.new(0.96, Color3.fromRGB(255, 170, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 170, 255))}
+UIGradient_8.Parent = AutoRaid

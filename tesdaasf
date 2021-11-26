@@ -2651,7 +2651,7 @@ Section:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 for i = 1,10 do
-Tab:NewSection("Section Name "..i)
+Window:NewTab("TabName "..i)
 end
 
 
